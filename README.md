@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+# chat2slide
+
+- ChatGPT 스타일로 HTML을 표현합니다.
+- H2는 질문, H3는 대답입니다.
+- 음성을 지원합니다. 질문은 남성, 대답은 여성의 목소리로 재생됩니다.
+- [SPACE] 키를 눌러 대화를 진행합니다.
+
+## 입력
+
+```html
 <html>
     <head>
         <meta charset="UTF-8">
@@ -17,3 +26,8 @@
     </body>
     <script src="chat2slide.js"></script>
 </html>
+```
+
+## 화면
+
+![결과화면](example.png)
