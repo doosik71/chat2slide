@@ -73,6 +73,22 @@ function add_response(text, voice) {
     document.querySelector('main').appendChild(a);
 }
 
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+async function animate_typewriter(element) {
+    element.style.display = 'block';
+    const text = element.textContent.slice();
+
+    for (let i = 0; i < text.length; i++) {
+        element.textContent = text.substring(0, i) +'▮';
+        await sleep(100);
+    }
+
+    element.textContent = text;
+}
+
 function continue_slide(event) {
     if (event.keyCode === 32) { // space key.
         if (chat_slide_index < 0) {
@@ -84,12 +100,19 @@ function continue_slide(event) {
 
             if (chat_slide_index < headings.length) {
                 const head = headings[chat_slide_index];
-                head.style.display = 'block';
                 speak(head.textContent, head.tagName === "H2");
+                animate_typewriter(head);
                 chat_slide_index++;
             } else {
                 document.removeEventListener('keydown', continue_slide)
             }
+        }
+    } else if (event.key === 'Backspace') { // backspace key.
+        if (chat_slide_index > 0) {
+            chat_slide_index--;
+            const headings = document.querySelectorAll('h2, h3');
+            const head = headings[chat_slide_index];
+            head.style.display = 'none';
         }
     } else if (event.keyCode === 27) { // escape key.
         stop_speak();
