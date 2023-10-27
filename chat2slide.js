@@ -112,7 +112,7 @@ function continue_slide(event) {
     } else if (event.key === 'Backspace') { // backspace key.
         if (chat_slide_index > 0) {
             chat_slide_index--;
-            const elements = document.querySelectorAll('h2, h3, ul');
+            const elements = document.querySelectorAll('h2, h3, ul:not(ul ul)');
             const el = elements[chat_slide_index];
             el.style.display = 'none';
         }
@@ -125,9 +125,7 @@ function generate_from_markdown() {
     const markdowns = document.querySelectorAll('.markdown');
 
     for (let i = 0; i < markdowns.length; i++) {
-        let lines = markdowns[i].innerHTML.split('\n');
-        lines = lines.map(function(str) { return str.trim(); });
-        lines = lines.join('\n');
+        let lines = markdowns[i].innerHTML;
         lines = marked.parse(lines);
         markdowns[i].innerHTML = lines;
         markdowns[i].style.display = 'block';

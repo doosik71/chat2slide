@@ -22,7 +22,7 @@ h1 {
     border-color: black;
 }
 
-h2, h3, ul {
+h2, h3, ul:not(ul ul) {
     display: none;
     max-width: 50em;
     margin: 0.5em auto;
@@ -35,11 +35,11 @@ h2, h3, ul {
     position: relative;
 }
 
-h3, ul {
+h3, ul:not(ul ul) {
     background-color: var(--response-background-color);
 }
 
-h2::before, h3::before, ul::before {
+h2::before, h3::before, ul:not(ul ul)::before {
     content: "";
     display: block;
     margin: 0px 26px -58px -84px;
@@ -56,11 +56,11 @@ h2::before {
     background: url('chathuman.png') no-repeat;
 }
 
-h3::before, ul::before {
+h3::before, ul:not(ul ul)::before {
     background: url('chatbot.png') no-repeat;
 }
 
-li {
+ul:not(ul ul) > li {
     margin-left: 1em;
 }
 
@@ -76,12 +76,12 @@ p, pre {
 }
 
 @media print {
-    h2, h3, ul, .markdown {
+    h2, h3, ul:not(ul ul), .markdown {
         display: block;
         min-height: 1em;
     }
 
-    h3, ul {
+    h3, ul:not(ul ul) {
         border-left: 5px solid lightgray;
         border-radius: 0;
     }
