@@ -79,14 +79,16 @@ function sleep(milliseconds) {
 
 async function animate_typewriter(element) {
     element.style.display = 'block';
-    const text = element.textContent.slice();
+    const text = element.innerHTML;
 
-    for (let i = 0; i < text.length; i++) {
-        element.textContent = text.substring(0, i) +'▮';
-        await sleep(100);
+    if (! /<[^>]*>/.test(text)) {
+        for (let i = 0; i < text.length; i++) {
+            element.innerHTML = text.substring(0, i) +'▮';
+            await sleep(30);
+        }
     }
 
-    element.textContent = text;
+    element.innerHTML = text;
 }
 
 function continue_slide(event) {
