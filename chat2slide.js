@@ -98,12 +98,12 @@ function continue_slide(event) {
             speak(head.textContent);
             chat_slide_index = 0;
         } else {
-            const headings = document.querySelectorAll('h2, h3');
+            const elements = document.querySelectorAll('h2, h3, ul');
 
-            if (chat_slide_index < headings.length) {
-                const head = headings[chat_slide_index];
-                speak(head.textContent, head.tagName === "H2");
-                animate_typewriter(head);
+            if (chat_slide_index < elements.length) {
+                const el = elements[chat_slide_index];
+                speak(el.textContent, el.tagName === "H2");
+                animate_typewriter(el);
                 chat_slide_index++;
             } else {
                 document.removeEventListener('keydown', continue_slide)
@@ -112,13 +112,28 @@ function continue_slide(event) {
     } else if (event.key === 'Backspace') { // backspace key.
         if (chat_slide_index > 0) {
             chat_slide_index--;
-            const headings = document.querySelectorAll('h2, h3');
-            const head = headings[chat_slide_index];
-            head.style.display = 'none';
+            const elements = document.querySelectorAll('h2, h3, ul');
+            const el = elements[chat_slide_index];
+            el.style.display = 'none';
         }
     } else if (event.keyCode === 27) { // escape key.
         stop_speak();
     }
 }
+
+function generate_from_markdown() {
+    const markdowns = document.querySelectorAll('.markdown');
+
+    for (let i = 0; i < markdowns.length; i++) {
+        let lines = markdowns[i].innerHTML.split('\n');
+        lines = lines.map(function(str) { return str.trim(); });
+        lines = lines.join('\n');
+        lines = marked.parse(lines);
+        markdowns[i].innerHTML = lines;
+        markdowns[i].style.display = 'block';
+    }
+};
+
+generate_from_markdown();
 
 document.body.addEventListener('keydown', continue_slide);
