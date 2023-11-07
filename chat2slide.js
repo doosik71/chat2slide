@@ -132,6 +132,7 @@ function generate_from_markdown() {
     }
 };
 
-generate_from_markdown();
-
-document.body.addEventListener('keydown', continue_slide);
+document.addEventListener("DOMContentLoaded", function() {
+    generate_from_markdown();
+    document.body.addEventListener('keydown', continue_slide);    
+});
